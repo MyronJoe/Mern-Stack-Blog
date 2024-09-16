@@ -9,8 +9,8 @@ function Header() {
     return (
         <Navbar className='border-b-2'>
             <Link to="/" className='self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white'>
-                <span className='bg-blue-900 py-1 px-2 text-white rounded-md'>Kamtech</span>Blog
-            </Link>
+            <span className='bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 py-1 px-2 text-white rounded-md'>Kamtech</span>Blog
+          </Link>
 
 
             <form>
