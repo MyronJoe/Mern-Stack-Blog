@@ -26,7 +26,7 @@ export default function Dashboard() {
         <Dashsidebar />
       </div>
 
-      <div className="">
+      <div className="w-full">
         {/* profile and others */}
 
         {tab === 'profile' && <DashProfile />}
