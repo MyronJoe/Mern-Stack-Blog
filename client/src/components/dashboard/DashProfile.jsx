@@ -1,4 +1,4 @@
-import { Alert, Button, Modal, TextInput } from 'flowbite-react';
+import { Alert, Button, Modal, Spinner, TextInput } from 'flowbite-react';
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable, } from 'firebase/storage';
@@ -7,10 +7,11 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { updateStart, updateFailure, updateSuccess, deleteUserFailure, deleteUserStart, deleteUserSuccess, signoutSuccess } from '../../redux/user/userSlice';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 export default function DashProfile() {
 
-    const { currentUser, error } = useSelector(state => state.user)
+    const { currentUser, error, loading } = useSelector(state => state.user)
 
     const filePickerRef = useRef();
     const dispatch = useDispatch()
@@ -149,9 +150,9 @@ export default function DashProfile() {
                 method: "DELETE"
             })
             const data = await res.json();
-            if(!res.ok){
+            if (!res.ok) {
                 dispatch(deleteUserFailure(data.message))
-            }else{
+            } else {
                 dispatch(deleteUserSuccess(data))
             }
 
@@ -169,9 +170,9 @@ export default function DashProfile() {
 
             const data = await res.json()
 
-            if(!res.ok){
+            if (!res.ok) {
                 console.log(data.message)
-            }else{
+            } else {
                 dispatch(signoutSuccess())
             }
         } catch (error) {
@@ -254,9 +255,24 @@ export default function DashProfile() {
 
                 <TextInput type='password' id='password' placeholder='Password' onChange={handleChange} />
 
-                <Button type='submit' gradientDuoTone="purpleToBlue" outline>
-                    Update
+                <Button type='submit' gradientDuoTone="purpleToBlue" outline disabled={loading || imageFileUploading}>
+                    {loading ? (
+                        <>
+                            <Spinner size='sm' />
+                            <span className='pl-3'>Loading...</span>
+                        </>
+                    ) : 'Update'}
                 </Button>
+
+                {
+                    currentUser.isAdmin && (
+                        <Link to='/create-post'>
+                            <Button type='button' gradientDuoTone='purpleToPink' className='w-full'>
+                                Create Post
+                            </Button>
+                        </Link>
+                    )
+                }
 
             </form>
 
