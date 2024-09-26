@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import userRoutes from './routes/user.routes.js'
 import authRoutes from './routes/auth.routes.js'
+import postRoutes from './routes/post.routes.js'
 import cookieParser from 'cookie-parser'
 
 
@@ -25,6 +26,7 @@ app.listen(process.env.PORT, () => {
 
 app.use('/api/user', userRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/post', postRoutes)
 
 
 
