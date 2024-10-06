@@ -31,7 +31,7 @@ const postShema = new mongoose.Schema({
     },
     image:{
         type: String,
-        default: 'hhttps://www.dreamhost.com/blog/wp-content/uploads/2022/10/Navigation-Menu-Design-Tips-Feature-750x498.jpg'
+        default: 'https://www.dreamhost.com/blog/wp-content/uploads/2022/10/Navigation-Menu-Design-Tips-Feature-750x498.jpg'
     },
 
 }, {timestamps: true} )
