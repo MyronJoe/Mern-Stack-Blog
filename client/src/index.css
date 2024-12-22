@@ -38,4 +38,9 @@ body {
 
 .dark .post-content a {
     color: red;
+    text-decoration: none;
+}
+
+.dark .post-content a:hover {
+    text-decoration: underline;
 }
