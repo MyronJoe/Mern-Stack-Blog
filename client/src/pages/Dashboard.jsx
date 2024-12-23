@@ -5,6 +5,7 @@ import DashProfile from '../components/dashboard/DashProfile'
 import DashPosts from '../components/dashboard/DashPosts'
 import DashUsers from '../components/dashboard/DashUsers'
 import DashComments from '../components/dashboard/DashComments'
+import DashboardComp from '../components/dashboard/DashboardComp'
 
 
 export default function Dashboard() {
@@ -30,6 +31,10 @@ export default function Dashboard() {
       </div>
 
       <div className="w-full">
+        {/* dash and others */}
+
+        {tab === 'dash' && <DashboardComp />}
+
         {/* profile and others */}
 
         {tab === 'profile' && <DashProfile />}
