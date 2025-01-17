@@ -17,7 +17,7 @@ export default function UpdatePost() {
     const [publishError, setPublishError] = useState(null)
     const [formData, setFormData] = useState({})
 
-    const {currentUser} = useSelector((state) => state.user)
+    const { currentUser } = useSelector((state) => state.user)
 
     const { postId } = useParams();
 
@@ -153,10 +153,10 @@ export default function UpdatePost() {
 
                     <Select onChange={(e) => setFormData({ ...formData, category: e.target.value })} value={formData.category}>
                         <option value='uncategorized'>Select a category</option>
-                        <option value='python'>Python</option>
+                        <option value='reactjs'>React.js</option>
                         <option value='nextjs'>Next.js</option>
                         <option value='javascript'>JavaScript</option>
-                        <option value='reactjs'>React.js</option>
+                        <option value='python'>Python</option>
                     </Select>
 
                 </div>

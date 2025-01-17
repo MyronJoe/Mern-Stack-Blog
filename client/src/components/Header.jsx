@@ -1,18 +1,29 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaMoon, FaSun } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { toggleTheme } from '../redux/theme/themeSlice';
 import { signoutSuccess } from '../redux/user/userSlice';
+import { useEffect, useState } from 'react';
 
 function Header() {
+    
     const path = useLocation().pathname;
-    const dispatch = useDispatch()
+    const location = useLocation();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { currentUser } = useSelector((state) => state.user);
+    const { theme } = useSelector((state) => state.theme);
+    const [searchTerm, setSearchTerm] = useState('');
 
-    const {theme} = useSelector(state => state.theme)
-
-    const { currentUser } = useSelector(state => state.user)
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const searchTermFromUrl = urlParams.get('searchTerm');
+        if (searchTermFromUrl) {
+            setSearchTerm(searchTermFromUrl);
+        }
+    }, [location.search]);
 
 
     const handleSignout = async () => {
@@ -23,15 +34,23 @@ function Header() {
 
             const data = await res.json()
 
-            if(!res.ok){
+            if (!res.ok) {
                 console.log(data.message)
-            }else{
+            } else {
                 dispatch(signoutSuccess())
             }
         } catch (error) {
             console.log(error.message)
         }
     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const urlParams = new URLSearchParams(location.search);
+        urlParams.set('searchTerm', searchTerm);
+        const searchQuery = urlParams.toString();
+        navigate(`/search?${searchQuery}`);
+    };
 
     return (
         <Navbar className='border-b-2'>
@@ -40,12 +59,14 @@ function Header() {
             </Link>
 
 
-            <form>
+            <form onSubmit={handleSubmit}>
                 <TextInput
                     type='text'
                     placeholder='Search...'
                     rightIcon={AiOutlineSearch}
                     className='hidden lg:inline'
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </form>
 
@@ -57,7 +78,7 @@ function Header() {
             <div className="flex gap-2 content-center md:order-2">
 
                 <Button className='w-12 h-10 ' color='gray' pill onClick={() => dispatch(toggleTheme())}>
-                    {theme === 'light' ? <FaMoon className='text-md mt-[0.12rem]' /> : <FaSun className='text-md mt-[0.12rem]'/>}
+                    {theme === 'light' ? <FaMoon className='text-md mt-[0.12rem]' /> : <FaSun className='text-md mt-[0.12rem]' />}
                 </Button>
 
                 {
