@@ -94,6 +94,16 @@ export default function Dashsidebar() {
                         </Link>
                     }
 
+                    {
+                        currentUser.isAdmin &&
+
+                        <Link to='/dashboard?tab=categories' >
+                            <Sidebar.Item active={tab === 'categories'} icon={HiAnnotation} labelColor='dark' as='div'>
+                                Categories
+                            </Sidebar.Item>
+                        </Link>
+                    }
+
                     <Sidebar.Item icon={HiArrowSmRight} className="cursor-pointer" onClick={handleSignout}>
                         Sign Out
                     </Sidebar.Item>

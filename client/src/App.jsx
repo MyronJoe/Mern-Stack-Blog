@@ -14,6 +14,7 @@ import UpdatePost from './components/dashboard/UpdatePost'
 import PostPage from './pages/PostPage'
 import ScrollToTop from './components/ScrollToTop'
 import Search from './pages/Search'
+import CreateCategory from './components/dashboard/CreateCategory'
 
 export default function App() {
   return (
@@ -39,6 +40,8 @@ export default function App() {
         <Route element={<OnlyAdminPrivateRoute />}>
 
           <Route path='/create-post' element={<CreatePost />} />
+
+          <Route path='/create-category' element={<CreateCategory/>} />
 
           <Route path='/update-post/:postId' element={<UpdatePost />} />
 
